@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.output/
+.tanstack/
+coverage/
+pnpm-lock.yaml
+src/routeTree.gen.ts
+docs/superpowers/plans/
