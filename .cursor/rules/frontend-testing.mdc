@@ -1,0 +1,17 @@
+---
+description: Require route-facing frontend components to include corresponding tests
+alwaysApply: true
+---
+
+# Frontend Testing
+
+## Component test coverage
+
+- Every route-facing component file must have a corresponding test file.
+- Prefer colocated naming, for example:
+  - `src/components/routes/health/PingView.tsx`
+  - `src/components/routes/health/PingView.test.tsx`
+
+## Rule intent
+
+- Changes to route component behavior should include or update the matching component tests.

@@ -1,0 +1,16 @@
+---
+description: Define frontend route component organization and mirrored directory layout
+alwaysApply: true
+---
+
+# Frontend Structure
+
+## Route component organization
+
+- Route-facing UI components should be defined in dedicated component files, not inline in route definitions.
+- Mirror route structure in `src/components/` so component paths reflect route paths.
+
+## Backend/frontend alignment
+
+- Frontend API wrappers in `src/api/` should mirror the backend layout under `src/server/`.
+- Components should consume loader-ready data structures that are composed from `src/api/` calls.

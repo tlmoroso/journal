@@ -1,0 +1,27 @@
+---
+description: Define backend API/server layering, validation, and loader composition
+alwaysApply: true
+---
+
+# Backend Structure
+
+## Server function first
+
+- Prefer `createServerFn` server functions over server routes.
+- Use server routes only when there is a clear technical requirement.
+
+## Mirrored backend layout
+
+- Place server function implementations under `src/server/` in a structure that mirrors route/API shape.
+- Expose frontend-callable wrappers under `src/api/` with the same mirrored layout as `src/server/`.
+
+## Validation contracts
+
+- Every server function must define both input and output validation with Zod schemas.
+- Export Zod schema types so downstream code shares the same contracts.
+
+## Loader composition
+
+- When a route loader needs multiple data domains, compose them in dedicated files under `src/loaders/`.
+- Loaders should orchestrate wrapper calls from `src/api/` rather than bypassing the API layer.
+- Reuse exported Zod schema types in loaders.
