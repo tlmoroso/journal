@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start": "node .output/server/index.mjs",
+    "start": "node scripts/start.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -23,7 +23,7 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "check": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm run test",
-    "clean": "rimraf .tanstack .output dist node_modules/.vite"
+    "clean": "rimraf .tanstack dist node_modules/.vite"
   },
   "dependencies": {
     "@tanstack/react-query": "catalog:",
@@ -60,6 +60,8 @@
     "vitest": "catalog:"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

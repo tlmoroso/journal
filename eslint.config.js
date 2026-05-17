@@ -4,7 +4,7 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 
 export default tseslint.config(
-  { ignores: ['dist', '.output', '.tanstack', 'node_modules', 'src/routeTree.gen.ts'] },
+  { ignores: ['dist', '.output', '.tanstack', 'node_modules', 'src/routeTree.gen.ts', 'scripts'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

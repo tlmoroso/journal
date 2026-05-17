@@ -5,3 +5,4 @@ dist/
 coverage/
 pnpm-lock.yaml
 src/routeTree.gen.ts
+docs/superpowers/plans/
