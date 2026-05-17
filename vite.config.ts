@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 
 // Temporary cast keeps typecheck/lint green until vitest config typing is finalized.
 export default defineConfig({
-  plugins: [tanstackStart(), viteReact()],
+  plugins: [process.env.VITEST ? null : tanstackStart(), viteReact()],
   resolve: {
     alias: {
       '~': resolve(__dirname, './src'),
