@@ -12,6 +12,7 @@ dist/
 
 # Vite
 node_modules/.vite/
+.vite/
 
 # Test
 coverage/

@@ -1,0 +1,17 @@
+---
+description: Require backend API unit tests to be colocated with implementations
+alwaysApply: true
+---
+
+# Backend Testing
+
+## API test coverage
+
+- Every API/server function file must have a corresponding unit test file next to it.
+- Prefer colocated naming, for example:
+  - `src/server/health/ping.ts`
+  - `src/server/health/ping.test.ts`
+
+## Rule intent
+
+- Changes to backend API behavior should include or update the colocated unit tests in the same area.
