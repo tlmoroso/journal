@@ -1,6 +1,26 @@
 node_modules/
-dist/
 .pnpm-store/
 
 # Worktrees
 .worktrees/
+
+# Build output
+dist/
+.output/
+.tanstack/
+
+# Vite
+node_modules/.vite/
+
+# Test
+coverage/
+
+# Editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Logs
+*.log
+.pnpm-debug.log
