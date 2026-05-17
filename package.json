@@ -22,15 +22,31 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
+    "db:local:up": "docker compose -f docker-compose.local-db.yml up -d",
+    "db:local:down": "docker compose -f docker-compose.local-db.yml down",
+    "db:local:reset": "docker compose -f docker-compose.local-db.yml down -v",
+    "db:load-local": "pnpm run db:local:up && pnpm run db:migrate:deploy && pnpm run db:seed",
+    "db:test-local": "pnpm run db:load-local && RUN_DB_TESTS=true pnpm run test src/db/migrations.test.ts",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:status": "prisma migrate status",
+    "db:migrate:diff": "prisma migrate diff",
+    "db:backup": "node scripts/db/backup-local.mjs",
     "check": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm run test",
     "clean": "rimraf .tanstack dist node_modules/.vite"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "@tanstack/react-router": "catalog:",
+    "@tanstack/react-router-devtools": "catalog:",
     "@tanstack/react-router-ssr-query": "catalog:",
     "@tanstack/react-start": "catalog:",
     "@tanstack/react-table": "catalog:",
-    "@tanstack/react-router-devtools": "catalog:",
+    "dotenv": "^17.4.2",
+    "pg": "^8.20.0",
     "react": "catalog:",
     "react-dom": "catalog:",
     "zod": "catalog:"
@@ -49,6 +65,7 @@
     "eslint-plugin-react-hooks": "catalog:",
     "jsdom": "catalog:",
     "prettier": "catalog:",
+    "prisma": "^7.8.0",
     "rimraf": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
@@ -57,7 +74,10 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "esbuild"
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma"
     ]
   }
 }

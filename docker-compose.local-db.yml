@@ -1,0 +1,20 @@
+services:
+  journal-db:
+    image: postgres:16-alpine
+    container_name: journal-local-db
+    environment:
+      POSTGRES_USER: journal_user
+      POSTGRES_PASSWORD: journal_password
+      POSTGRES_DB: journal_dev
+    ports:
+      - '${JOURNAL_DB_PORT:-5433}:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U journal_user -d journal_dev']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - journal_local_db_data:/var/lib/postgresql/data
+
+volumes:
+  journal_local_db_data:
