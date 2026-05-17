@@ -2,23 +2,20 @@ import { describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HealthStatus } from './HealthStatus';
+import type { HealthPingResponse } from '~/server/health/ping';
 
-vi.mock('~/lib/trpc', () => ({
-  useTRPC: () => ({
-    health: {
-      ping: {
-        queryOptions: () => ({
-          queryKey: ['health.ping'],
-          queryFn: () =>
-            Promise.resolve({
-              status: 'ok',
-              timestamp: 1_700_000_000_000,
-            }),
-        }),
-      },
-    },
-  }),
-}));
+const pingHealthMock = vi.fn<() => Promise<HealthPingResponse>>().mockResolvedValue({
+  status: 'ok',
+  timestamp: 1_700_000_000_000,
+});
+
+vi.mock('@tanstack/react-start', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@tanstack/react-start')>();
+  return {
+    ...actual,
+    useServerFn: () => pingHealthMock,
+  };
+});
 
 function renderWithProviders() {
   const queryClient = new QueryClient({
@@ -45,5 +42,6 @@ describe('HealthStatus', () => {
     });
 
     expect(screen.getByText('ok')).toBeInTheDocument();
+    expect(pingHealthMock).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,23 +1,18 @@
-import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
+import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { QueryClientProvider, type QueryClient } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { TRPCProvider } from '~/lib/trpc';
-import type { createTrpcClient } from '~/lib/trpc';
+import { RouteError } from '~/components/boundaries/RouteError';
+import { RouteNotFound } from '~/components/boundaries/RouteNotFound';
+import { RoutePending } from '~/components/boundaries/RoutePending';
 import '~/styles.css';
 
-interface RouterContext {
-  queryClient: QueryClient;
-  trpcClient: ReturnType<typeof createTrpcClient>;
-}
-
-export const Route = createRootRouteWithContext<RouterContext>()({
+export const Route = createRootRoute({
   component: RootComponent,
+  pendingComponent: RoutePending,
+  errorComponent: ({ error }) => <RouteError error={error} />,
+  notFoundComponent: RouteNotFound,
 });
 
 function RootComponent() {
-  const { queryClient, trpcClient } = Route.useRouteContext();
-
   return (
     <html lang="en">
       <head>
@@ -26,19 +21,8 @@ function RootComponent() {
         <title>Journal</title>
       </head>
       <body>
-        <QueryClientProvider client={queryClient}>
-          <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
-            <main>
-              <Outlet />
-            </main>
-            {import.meta.env.DEV ? (
-              <>
-                <TanStackRouterDevtools position="bottom-right" />
-                <ReactQueryDevtools buttonPosition="bottom-left" />
-              </>
-            ) : null}
-          </TRPCProvider>
-        </QueryClientProvider>
+        <Outlet />
+        <TanStackRouterDevtools position="bottom-right"  initialIsOpen={true} />
       </body>
     </html>
   );

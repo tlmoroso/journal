@@ -1,14 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import { useTRPC } from '~/lib/trpc';
+import { type HealthPingResponse } from '~/server/health/ping';
 
-export function HealthStatus() {
-  const trpc = useTRPC();
-  const { data, isLoading, error } = useQuery(trpc.health.ping.queryOptions());
+interface HealthStatusProps {
+  data: HealthPingResponse;
+}
 
-  if (isLoading) return <p>Checking server...</p>;
-  if (error) return <p style={{ color: 'crimson' }}>Server error: {error.message}</p>;
-  if (!data) return null;
-
+export function HealthStatus({ data }: HealthStatusProps) {
   return (
     <p>
       Server status: <strong>{data.status}</strong> (as of{' '}

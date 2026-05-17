@@ -6,7 +6,6 @@ Personal Website for Journaling.
 
 - [Tanstack Start](https://tanstack.com/start) (Vite + Nitro/h3)
 - [Tanstack Router](https://tanstack.com/router), [Tanstack Query](https://tanstack.com/query), [Tanstack Table](https://tanstack.com/table)
-- [tRPC v11](https://trpc.io)
 - [Zod 4](https://zod.dev)
 - TypeScript (strict), ESLint 9, Prettier, Vitest
 - pnpm with [catalog](https://pnpm.io/catalogs) for centralized version management
@@ -53,12 +52,11 @@ src/
 ├── components/                 # shared UI
 ├── lib/
 │   ├── query-client.ts         # QueryClient factory
-│   └── trpc.ts                 # TRPCProvider + useTRPC hook
+│   └── ...                     # shared data/query helpers
 ├── server/
-│   └── trpc/                   # server-only tRPC routers + context
+│   └── ...                     # server-only functions
 └── routes/
-    ├── __root.tsx, index.tsx   # pages
-    └── api/trpc/$.ts           # tRPC fetch handler
+    └── __root.tsx, index.tsx   # pages
 ```
 
 ## Dependency Versions
